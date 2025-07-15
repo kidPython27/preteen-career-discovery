@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import ReportCard from '@/components/ReportCard';
 import StrengthCard from '@/components/StrengthCard';
@@ -246,7 +245,14 @@ const RiasecResult = () => {
           </div>
         </ReportCard>
 
-        <div className="text-center">
+        <div className="text-center space-y-4">
+          <div className="inline-block animate-float">
+            <Button asChild className="bg-gradient-to-r from-kid-green to-kid-blue hover:opacity-90 transition-opacity text-white rounded-full px-6 py-6 text-lg font-semibold shadow-lg hover:shadow-xl mr-4">
+              <Link to="/goal-plan">
+                My Goal Plan
+              </Link>
+            </Button>
+          </div>
           <div className="inline-block animate-float">
             <Button asChild className="bg-gradient-to-r from-kid-blue to-kid-purple hover:opacity-90 transition-opacity text-white rounded-full px-6 py-6 text-lg font-semibold shadow-lg hover:shadow-xl">
               <Link to="/parents">

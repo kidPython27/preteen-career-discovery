@@ -1,10 +1,94 @@
-
 import React from 'react';
 import ParentCard from '@/components/ParentCard';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import { Clock, Target, Users, BookOpen } from 'lucide-react';
 
 const Parents = () => {
+  const parentAdvice = [
+    {
+      "id": 5,
+      "ria_sec_type": "Realistic",
+      "title": "Encourage Outdoor Activities",
+      "description": "Engaging in outdoor activities like badminton will help build Raghav's physical fitness and social skills.",
+      "reasoning": "With a strong interest in badminton, encouraging outdoor play will help Raghav develop teamwork and fitness.",
+      "suggested_activities": [
+        "Join a local badminton club",
+        "Organize family badminton games"
+      ],
+      "suggested_toys": [
+        "Badminton racket",
+        "Shuttlecocks"
+      ],
+      "suggested_games": [
+        "Badminton tournaments",
+        "Outdoor obstacle courses"
+      ],
+      "potential_challenges": [
+        "Weather conditions",
+        "Finding local clubs"
+      ],
+      "recommended_resources": [
+        {
+          "title": "Badminton for Beginners",
+          "url": "https://www.example.com/badminton-beginners"
+        }
+      ],
+      "estimated_time_commitment": "1-2 hours per week",
+      "tone": "Encouraging and supportive",
+      "category": "long_term"
+    },
+    {
+      "id": 6,
+      "ria_sec_type": "Realistic",
+      "title": "Support Guitar Learning",
+      "description": "Help Raghav find resources and practice time for learning guitar.",
+      "reasoning": "Supporting his interest in music will enhance his confidence and skills.",
+      "suggested_activities": [
+        "Attend guitar lessons together",
+        "Set up a practice schedule"
+      ],
+      "suggested_toys": [
+        "Guitar tuner",
+        "Music stand"
+      ],
+      "suggested_games": [
+        "Music rhythm games"
+      ],
+      "potential_challenges": [
+        "Staying motivated",
+        "Finding time to practice"
+      ],
+      "recommended_resources": [
+        {
+          "title": "Guitar Chord Chart",
+          "url": "https://www.example.com/guitar-chord-chart"
+        }
+      ],
+      "estimated_time_commitment": "30 minutes per session",
+      "tone": "Motivational and engaging",
+      "category": "short_term"
+    }
+  ];
+
+  const finalActionSteps = [
+    {
+      "id": 7,
+      "title": "Set Up a Practice Schedule",
+      "description": "Create a weekly schedule for Raghav's guitar and badminton practice to help him stay consistent."
+    },
+    {
+      "id": 8,
+      "title": "Join Him in Activities",
+      "description": "Participate in badminton games or jam sessions to encourage his interests and spend quality time together."
+    },
+    {
+      "id": 9,
+      "title": "Explore Local Classes",
+      "description": "Research local music or sports classes that can help Raghav develop his skills further."
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50 pt-10 pb-16 px-4 md:px-6">
       <div className="max-w-4xl mx-auto">
@@ -103,6 +187,87 @@ const Parents = () => {
                 </tr>
               </tbody>
             </table>
+          </div>
+        </ParentCard>
+
+        <ParentCard title="Specific Activity Recommendations">
+          <p className="mb-4">
+            Based on your child's interests and strengths, here are specific recommendations tailored to their profile:
+          </p>
+          
+          <div className="space-y-6">
+            {parentAdvice.map((advice) => (
+              <div key={advice.id} className="border-l-4 border-kid-blue bg-blue-50 p-4 rounded-r-lg">
+                <div className="flex items-center mb-2">
+                  <Target className="w-5 h-5 mr-2 text-kid-blue" />
+                  <h4 className="font-bold text-lg text-gray-800">{advice.title}</h4>
+                  <span className={`ml-auto px-2 py-1 rounded-full text-xs font-medium ${advice.category === 'short_term' ? 'bg-kid-green text-white' : 'bg-kid-purple text-white'}`}>
+                    {advice.category === 'short_term' ? 'Short-term' : 'Long-term'}
+                  </span>
+                </div>
+                
+                <p className="text-gray-700 mb-3">{advice.description}</p>
+                <p className="text-sm text-gray-600 italic mb-4">{advice.reasoning}</p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <h5 className="font-semibold text-gray-800 mb-2 flex items-center">
+                      <Users className="w-4 h-4 mr-1" />
+                      Suggested Activities
+                    </h5>
+                    <ul className="list-disc pl-5 text-sm space-y-1">
+                      {advice.suggested_activities.map((activity, index) => (
+                        <li key={index}>{activity}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h5 className="font-semibold text-gray-800 mb-2 flex items-center">
+                      <BookOpen className="w-4 h-4 mr-1" />
+                      Recommended Tools
+                    </h5>
+                    <ul className="list-disc pl-5 text-sm space-y-1">
+                      {advice.suggested_toys.map((toy, index) => (
+                        <li key={index}>{toy}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <h5 className="font-semibold text-gray-800 mb-2">Potential Challenges</h5>
+                    <ul className="list-disc pl-5 text-sm space-y-1 text-amber-700">
+                      {advice.potential_challenges.map((challenge, index) => (
+                        <li key={index}>{challenge}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <h5 className="font-semibold text-gray-800 mb-2 flex items-center">
+                      <Clock className="w-4 h-4 mr-1" />
+                      Time Commitment
+                    </h5>
+                    <p className="text-sm text-gray-600">{advice.estimated_time_commitment}</p>
+                  </div>
+                </div>
+                
+                {advice.recommended_resources.length > 0 && (
+                  <div>
+                    <h5 className="font-semibold text-gray-800 mb-2">Helpful Resources</h5>
+                    <div className="space-y-1">
+                      {advice.recommended_resources.map((resource, index) => (
+                        <a key={index} href={resource.url} target="_blank" rel="noopener noreferrer" className="text-kid-blue hover:text-kid-purple underline text-sm block">
+                          {resource.title}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </ParentCard>
 
@@ -217,6 +382,23 @@ const Parents = () => {
               </ul>
             </div>
           </div>
+          
+          <div className="mt-6 border-t pt-6">
+            <h4 className="font-bold text-lg mb-4 text-gray-800">Immediate Next Steps</h4>
+            <div className="space-y-4">
+              {finalActionSteps.map((step) => (
+                <div key={step.id} className="bg-gradient-to-r from-kid-blue/10 to-kid-purple/10 p-4 rounded-lg">
+                  <h5 className="font-bold text-gray-800 mb-2 flex items-center">
+                    <span className="bg-kid-blue text-white rounded-full w-6 h-6 flex items-center justify-center text-sm mr-2">
+                      {step.id - 6}
+                    </span>
+                    {step.title}
+                  </h5>
+                  <p className="text-gray-700 text-sm">{step.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </ParentCard>
 
         <ParentCard title="Final Thoughts for Parents">
@@ -238,10 +420,15 @@ const Parents = () => {
           </div>
         </ParentCard>
 
-        <div className="text-center mt-10">
+        <div className="text-center mt-10 space-x-4">
           <Button asChild className="bg-gradient-to-r from-kid-blue to-kid-purple hover:opacity-90 transition-opacity text-white rounded-full px-6 py-2 text-lg font-semibold shadow-md">
             <Link to="/">
               Back to Results
+            </Link>
+          </Button>
+          <Button asChild className="bg-gradient-to-r from-kid-green to-kid-blue hover:opacity-90 transition-opacity text-white rounded-full px-6 py-2 text-lg font-semibold shadow-md">
+            <Link to="/goal-plan">
+              View Goal Plan
             </Link>
           </Button>
         </div>
