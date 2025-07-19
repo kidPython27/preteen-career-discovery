@@ -8,6 +8,8 @@ import StreamCard from '@/components/StreamCard';
 import PathwayCard from '@/components/PathwayCard';
 import ReadinessStep from '@/components/ReadinessStep';
 import ResourceCard from '@/components/ResourceCard';
+import AIInterestCard from '@/components/AIInterestCard';
+import AIResourceCard from '@/components/AIResourceCard';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
@@ -17,6 +19,68 @@ const RiasecResult = () => {
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+
+  // AI Skills data
+  const aiData = {
+    ai_intro: "AI (Artificial Intelligence) is like a smart robot brain. It helps computers and machines think and do tasks like humans! You already use it when you ask voice assistants, play smart games, or see recommendations on YouTube.",
+    how_ai_is_used_today: [
+      "Helping doctors understand health better.",
+      "Making cars smarter and safer.",
+      "Creating music, art, and stories.",
+      "Helping teachers with learning tools.",
+      "Giving advice in games and apps."
+    ],
+    how_ai_affects_your_favorite_things: [
+      {
+        interest_area: "Art and Drawing",
+        ai_role: "AI tools can help you color faster or suggest cool drawing ideas!",
+        you_can_do: "Try using drawing apps that suggest shapes or use smart coloring features."
+      },
+      {
+        interest_area: "Helping People",
+        ai_role: "AI helps doctors and teachers give better help by understanding what people need.",
+        you_can_do: "Learn how to ask good questions and talk kindly — AI can't replace a kind heart!"
+      },
+      {
+        interest_area: "Games and Technology",
+        ai_role: "Game creators use AI to make smart characters and new levels!",
+        you_can_do: "Try game design tools or coding for kids to build your own games."
+      }
+    ],
+    super_skills_to_learn: [
+      "Be Curious — always ask 'Why?' and 'How?'",
+      "Learn basic coding with block tools like Scratch.",
+      "Use smart tools safely and kindly.",
+      "Play with AI-powered games or art apps.",
+      "Talk about your ideas with parents or teachers."
+    ],
+    ai_future_tips: {
+      what_you_can_do: [
+        "Ask your teacher about AI and how it's used.",
+        "Try creating a simple chatbot or digital story.",
+        "Draw your idea of a helpful robot!",
+        "Watch videos that explain AI in simple ways."
+      ],
+      stay_safe_note: "Always talk to an adult before trying a new website or app!"
+    },
+    fun_resources: [
+      {
+        title: "Scratch Coding",
+        description: "Make fun games and stories by snapping blocks of code!",
+        link: "https://scratch.mit.edu/"
+      },
+      {
+        title: "Google's Teachable Machine",
+        description: "Teach your computer to recognize sounds or pictures!",
+        link: "https://teachablemachine.withgoogle.com/"
+      },
+      {
+        title: "AI for Kids - YouTube Series",
+        description: "Short, fun videos that explain AI simply.",
+        link: "https://www.youtube.com/results?search_query=AI+for+kids"
+      }
+    ]
+  };
 
   // Stream selection data
   const streamData = {
@@ -162,6 +226,7 @@ const RiasecResult = () => {
           </ReportCard>
         </div>
 
+        {/* Keep existing code (skill set section) */}
         <ReportCard 
           title="Your Personal Skill Set!"
           chipText="TALENTS & ABILITIES"
@@ -327,6 +392,102 @@ const RiasecResult = () => {
           </div>
         </ReportCard>
 
+        {/* NEW AI SKILLS AND INTERVENTION SECTION */}
+        <ReportCard 
+          title="AI & Future Skills! 🤖"
+          chipText="SMART TECHNOLOGY"
+          chipColor="from-kid-purple to-kid-blue"
+          className="mb-6"
+        >
+          <div className="mb-6">
+            <p className="text-gray-700 mb-4">{aiData.ai_intro}</p>
+            
+            <div className="bg-gradient-to-r from-kid-blue/5 to-kid-purple/5 rounded-xl p-4 mb-6">
+              <h4 className="font-semibold mb-3 text-gray-800 flex items-center">
+                <span className="mr-2">🌟</span>
+                How AI is Used Today:
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                {aiData.how_ai_is_used_today.map((use, index) => (
+                  <div key={index} className="flex items-start space-x-2">
+                    <span className="text-kid-blue text-sm">•</span>
+                    <span className="text-sm text-gray-600">{use}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <h4 className="font-semibold mb-4 text-gray-800 flex items-center">
+              <span className="mr-2">🎯</span>
+              How AI Affects Your Favorite Things:
+            </h4>
+            <div className="grid grid-cols-1 gap-4 mb-6">
+              {aiData.how_ai_affects_your_favorite_things.map((item, index) => (
+                <AIInterestCard
+                  key={index}
+                  interestArea={item.interest_area}
+                  aiRole={item.ai_role}
+                  youCanDo={item.you_can_do}
+                  icon={index === 0 ? "🎨" : index === 1 ? "💝" : "🎮"}
+                />
+              ))}
+            </div>
+
+            <div className="bg-gradient-to-r from-kid-green/5 to-kid-yellow/5 rounded-xl p-4 mb-6">
+              <h4 className="font-semibold mb-3 text-gray-800 flex items-center">
+                <span className="mr-2">⚡</span>
+                Super Skills to Learn:
+              </h4>
+              <div className="space-y-2">
+                {aiData.super_skills_to_learn.map((skill, index) => (
+                  <div key={index} className="flex items-start space-x-3">
+                    <div className="bg-kid-green text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold flex-shrink-0">
+                      {index + 1}
+                    </div>
+                    <span className="text-sm text-gray-700">{skill}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-kid-orange/5 to-kid-red/5 rounded-xl p-4 mb-6">
+              <h4 className="font-semibold mb-3 text-gray-800 flex items-center">
+                <span className="mr-2">🚀</span>
+                What You Can Do Right Now:
+              </h4>
+              <div className="space-y-2 mb-4">
+                {aiData.ai_future_tips.what_you_can_do.map((tip, index) => (
+                  <div key={index} className="flex items-start space-x-2">
+                    <span className="text-kid-orange text-sm">•</span>
+                    <span className="text-sm text-gray-600">{tip}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="bg-kid-yellow/20 border border-kid-yellow/30 rounded-lg p-3">
+                <p className="text-sm text-gray-700 font-medium">
+                  🛡️ Safety First: {aiData.ai_future_tips.stay_safe_note}
+                </p>
+              </div>
+            </div>
+
+            <h4 className="font-semibold mb-4 text-gray-800 flex items-center">
+              <span className="mr-2">🎁</span>
+              Fun AI Resources to Explore:
+            </h4>
+            <div className="grid grid-cols-1 gap-3">
+              {aiData.fun_resources.map((resource, index) => (
+                <AIResourceCard
+                  key={index}
+                  title={resource.title}
+                  description={resource.description}
+                  link={resource.link}
+                  icon={index === 0 ? "🎮" : index === 1 ? "🧠" : "📺"}
+                />
+              ))}
+            </div>
+          </div>
+        </ReportCard>
+
         {/* Keep existing sections */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <ReportCard 
@@ -366,6 +527,7 @@ const RiasecResult = () => {
           </ReportCard>
         </div>
 
+        {/* Keep existing code (future career ideas section) */}
         <ReportCard 
           title="Future Career Ideas!"
           chipText="FUTURE POSSIBILITIES"
@@ -417,6 +579,7 @@ const RiasecResult = () => {
           </div>
         </ReportCard>
 
+        {/* Keep existing code (what can you do right now section) */}
         <ReportCard 
           title="What Can You Do Right Now?"
           chipText="TAKE ACTION TODAY"
@@ -455,6 +618,7 @@ const RiasecResult = () => {
           </div>
         </ReportCard>
 
+        {/* Keep existing code (navigation buttons) */}
         <div className="text-center space-y-4">
           <div className="inline-block animate-float">
             <Button asChild className="bg-gradient-to-r from-kid-green to-kid-blue hover:opacity-90 transition-opacity text-white rounded-full px-6 py-6 text-lg font-semibold shadow-lg hover:shadow-xl mr-4">
