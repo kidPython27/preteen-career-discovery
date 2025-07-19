@@ -4,6 +4,10 @@ import StrengthCard from '@/components/StrengthCard';
 import ActionItem from '@/components/ActionItem';
 import SkillBadge from '@/components/SkillBadge';
 import CareerCard from '@/components/CareerCard';
+import StreamCard from '@/components/StreamCard';
+import PathwayCard from '@/components/PathwayCard';
+import ReadinessStep from '@/components/ReadinessStep';
+import ResourceCard from '@/components/ResourceCard';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
@@ -13,6 +17,79 @@ const RiasecResult = () => {
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+
+  // Stream selection data
+  const streamData = {
+    student_name: "Your Name Here",
+    test: "RIASEC",
+    top_interests: ["Conventional", "Social", "Artistic"],
+    recommended_stream: {
+      name: "Commerce",
+      match_percentage: 92,
+      reasoning: "You scored highest in Conventional, which indicates strong preferences for structured environments, organization, and data handling. Combined with high Social and Artistic scores, Commerce offers a balance of structured learning with opportunities to work with people and express creativity.",
+      related_subjects: ["Accountancy", "Economics", "Business Studies", "Mathematics (optional)"],
+      alternative_streams: [
+        {
+          name: "Humanities/Arts",
+          match_percentage: 88,
+          note: "A good fit due to your strong artistic and social orientation. Fields like psychology, communication, or liberal arts could suit you well."
+        }
+      ]
+    },
+    future_pathways: [
+      {
+        title: "Business Analyst",
+        education_required: "BCom/BBA → MBA",
+        description: "Work with organizations to interpret data, optimize processes, and improve operations using both analytical and communication skills."
+      },
+      {
+        title: "Corporate Trainer / HR Specialist",
+        education_required: "BBA → MBA (HR) or Psychology",
+        description: "Combine your organizational strengths with your people skills to help companies train and manage talent."
+      },
+      {
+        title: "Advertising & Media Planner",
+        education_required: "BA/BMM + Marketing or Design",
+        description: "A creative path that leverages your artistic inclination within a structured business setting."
+      }
+    ],
+    skill_alignment: {
+      strengths: ["Organizational ability", "Interpersonal communication", "Aesthetic sensitivity"],
+      areas_to_improve: ["Scientific reasoning", "Abstract problem-solving"]
+    },
+    stream_readiness_steps: [
+      "Join school commerce club or finance quiz",
+      "Take an online course in accounting or business basics",
+      "Create a budget planner for a family event"
+    ],
+    career_readiness_steps: [
+      "Choose Commerce stream with optional Math",
+      "Explore internships or summer schools in finance, marketing, or business"
+    ],
+    resources: {
+      books: [
+        {
+          title: "The Richest Man in Babylon",
+          reason: "Great for developing financial literacy at a young age"
+        },
+        {
+          title: "Made to Stick",
+          reason: "To learn communication skills for marketing or social roles"
+        }
+      ],
+      videos: [
+        {
+          title: "CrashCourse Economics",
+          url: "https://www.youtube.com/playlist?list=PL8dPuuaLjXtOfse2ncvffeelTrqvhrz8H"
+        }
+      ],
+      websites: [
+        "https://ncert.nic.in",
+        "https://khanacademy.org",
+        "https://yourstory.com"
+      ]
+    }
+  };
 
   return (
     <div className="min-h-screen pt-6 pb-12 px-4 md:px-6">
@@ -31,6 +108,7 @@ const RiasecResult = () => {
           </p>
         </header>
 
+        {/* Keep existing sections */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <ReportCard 
             title="What Is This Report?"
@@ -118,6 +196,138 @@ const RiasecResult = () => {
           </div>
         </ReportCard>
 
+        {/* NEW STREAM SELECTION SECTION */}
+        <ReportCard 
+          title="Your Perfect Study Stream! 🎓"
+          chipText="RECOMMENDED PATH"
+          chipColor="from-kid-green to-kid-blue"
+          className="mb-6"
+        >
+          <p className="mb-6 text-gray-700">
+            Based on your RIASEC results, here's the study stream that matches your interests and strengths perfectly!
+          </p>
+
+          {/* Recommended Stream */}
+          <div className="mb-6">
+            <StreamCard
+              name={streamData.recommended_stream.name}
+              matchPercentage={streamData.recommended_stream.match_percentage}
+              reasoning={streamData.recommended_stream.reasoning}
+              subjects={streamData.recommended_stream.related_subjects}
+              isRecommended={true}
+            />
+          </div>
+
+          {/* Alternative Stream */}
+          {streamData.recommended_stream.alternative_streams && (
+            <div className="mb-6">
+              <h3 className="text-lg font-semibold mb-3 text-gray-800">Alternative Option:</h3>
+              {streamData.recommended_stream.alternative_streams.map((stream, index) => (
+                <StreamCard
+                  key={index}
+                  name={stream.name}
+                  matchPercentage={stream.match_percentage}
+                  note={stream.note}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Future Career Pathways */}
+          <div className="mt-8">
+            <h3 className="text-lg font-semibold mb-4 text-gray-800 flex items-center">
+              <span className="mr-2">🌟</span>
+              Future Career Possibilities
+            </h3>
+            <div className="grid grid-cols-1 gap-4">
+              {streamData.future_pathways.map((pathway, index) => (
+                <PathwayCard
+                  key={index}
+                  title={pathway.title}
+                  educationRequired={pathway.education_required}
+                  description={pathway.description}
+                  icon={index === 0 ? "💼" : index === 1 ? "👥" : "🎨"}
+                />
+              ))}
+            </div>
+          </div>
+        </ReportCard>
+
+        {/* Stream & Career Readiness Steps */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <ReportCard 
+            title="Get Stream Ready! ⚡"
+            chipText="NEXT STEPS"
+            chipColor="from-kid-purple to-kid-pink"
+          >
+            <p className="mb-4 text-gray-700">Here's how you can start preparing for your chosen stream:</p>
+            <div className="space-y-2">
+              {streamData.stream_readiness_steps.map((step, index) => (
+                <ReadinessStep key={index} step={step} index={index} type="stream" />
+              ))}
+            </div>
+          </ReportCard>
+
+          <ReportCard 
+            title="Career Ready Steps! 💪"
+            chipText="FUTURE PREP"
+            chipColor="from-kid-green to-kid-yellow"
+          >
+            <p className="mb-4 text-gray-700">Start building your career foundation now:</p>
+            <div className="space-y-2">
+              {streamData.career_readiness_steps.map((step, index) => (
+                <ReadinessStep key={index} step={step} index={index} type="career" />
+              ))}
+            </div>
+          </ReportCard>
+        </div>
+
+        {/* Learning Resources */}
+        <ReportCard 
+          title="Amazing Resources to Explore! 📚"
+          chipText="LEARNING TOOLS"
+          chipColor="from-kid-orange to-kid-red"
+          className="mb-6"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <h4 className="font-semibold mb-3 text-gray-800">📚 Books to Read:</h4>
+              <div className="space-y-3">
+                {streamData.resources.books.map((book, index) => (
+                  <ResourceCard
+                    key={index}
+                    title={book.title}
+                    reason={book.reason}
+                    type="book"
+                  />
+                ))}
+              </div>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-3 text-gray-800">🎥 Videos & Websites:</h4>
+              <div className="space-y-3">
+                {streamData.resources.videos.map((video, index) => (
+                  <ResourceCard
+                    key={index}
+                    title={video.title}
+                    url={video.url}
+                    type="video"
+                  />
+                ))}
+                {streamData.resources.websites.map((website, index) => (
+                  <ResourceCard
+                    key={`website-${index}`}
+                    title={website.replace('https://', '').replace('http://', '')}
+                    url={website}
+                    type="website"
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </ReportCard>
+
+        {/* Keep existing sections */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <ReportCard 
             title="What Makes You Awesome?"
