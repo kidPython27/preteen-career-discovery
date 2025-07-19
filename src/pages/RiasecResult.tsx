@@ -10,6 +10,8 @@ import ReadinessStep from '@/components/ReadinessStep';
 import ResourceCard from '@/components/ResourceCard';
 import AIInterestCard from '@/components/AIInterestCard';
 import AIResourceCard from '@/components/AIResourceCard';
+import SoftSkillCard from '@/components/SoftSkillCard';
+import SoftSkillActivityCard from '@/components/SoftSkillActivityCard';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
@@ -155,6 +157,65 @@ const RiasecResult = () => {
     }
   };
 
+  // Soft Skills data
+  const softSkillsData = {
+    section_intro: "Soft skills are superpowers that help you work well with others, solve problems, and feel confident! They make you awesome at school, in games, with friends — and in your future career!",
+    key_soft_skills: [
+      {
+        name: "Teamwork",
+        what_it_means: "Working nicely with others to get things done.",
+        how_to_practice: "Join group projects or play team sports where you share ideas and take turns."
+      },
+      {
+        name: "Communication",
+        what_it_means: "Sharing your thoughts clearly and listening to others too.",
+        how_to_practice: "Tell a story to your family or ask a classmate how their day went."
+      },
+      {
+        name: "Problem Solving",
+        what_it_means: "Figuring out what to do when something is tricky.",
+        how_to_practice: "Try puzzles, games, or think of 3 ways to fix a small issue at home or school."
+      },
+      {
+        name: "Creativity",
+        what_it_means: "Thinking of new ideas and fun ways to do things.",
+        how_to_practice: "Draw something from your imagination or create a story about a flying school!"
+      },
+      {
+        name: "Empathy",
+        what_it_means: "Understanding how someone else feels.",
+        how_to_practice: "Ask a friend how they feel when they're sad or excited, and listen carefully."
+      },
+      {
+        name: "Confidence",
+        what_it_means: "Believing in yourself, even if something is hard.",
+        how_to_practice: "Try something new every week — like speaking up in class or finishing a tough level in a game!"
+      }
+    ],
+    daily_challenges: [
+      "Say something kind to a classmate.",
+      "Ask your parents if you can help with a task at home.",
+      "Write a short story and read it to someone.",
+      "Try to solve a small problem on your own first before asking for help.",
+      "Say 'thank you' to someone today."
+    ],
+    why_it_matters: "When you grow these skills, you become a better friend, student, and leader! Soft skills help you shine in school and make big dreams possible!",
+    fun_activity_ideas: [
+      {
+        activity: "Build a fort with friends or siblings.",
+        soft_skills_used: ["Teamwork", "Creativity", "Problem Solving"]
+      },
+      {
+        activity: "Make a short video talking about your favorite hobby.",
+        soft_skills_used: ["Confidence", "Communication"]
+      },
+      {
+        activity: "Help someone new in class feel welcome.",
+        soft_skills_used: ["Empathy", "Teamwork"]
+      }
+    ]
+  };
+
   return (
     <div className="min-h-screen pt-6 pb-12 px-4 md:px-6">
       <div className="max-w-4xl mx-auto">
@@ -172,7 +233,6 @@ const RiasecResult = () => {
           </p>
         </header>
 
-        {/* Keep existing sections */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <ReportCard 
             title="What Is This Report?"
@@ -226,7 +286,6 @@ const RiasecResult = () => {
           </ReportCard>
         </div>
 
-        {/* Keep existing code (skill set section) */}
         <ReportCard 
           title="Your Personal Skill Set!"
           chipText="TALENTS & ABILITIES"
@@ -261,7 +320,6 @@ const RiasecResult = () => {
           </div>
         </ReportCard>
 
-        {/* NEW STREAM SELECTION SECTION */}
         <ReportCard 
           title="Your Perfect Study Stream! 🎓"
           chipText="RECOMMENDED PATH"
@@ -272,7 +330,6 @@ const RiasecResult = () => {
             Based on your RIASEC results, here's the study stream that matches your interests and strengths perfectly!
           </p>
 
-          {/* Recommended Stream */}
           <div className="mb-6">
             <StreamCard
               name={streamData.recommended_stream.name}
@@ -283,7 +340,6 @@ const RiasecResult = () => {
             />
           </div>
 
-          {/* Alternative Stream */}
           {streamData.recommended_stream.alternative_streams && (
             <div className="mb-6">
               <h3 className="text-lg font-semibold mb-3 text-gray-800">Alternative Option:</h3>
@@ -298,7 +354,6 @@ const RiasecResult = () => {
             </div>
           )}
 
-          {/* Future Career Pathways */}
           <div className="mt-8">
             <h3 className="text-lg font-semibold mb-4 text-gray-800 flex items-center">
               <span className="mr-2">🌟</span>
@@ -318,7 +373,6 @@ const RiasecResult = () => {
           </div>
         </ReportCard>
 
-        {/* Stream & Career Readiness Steps */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <ReportCard 
             title="Get Stream Ready! ⚡"
@@ -347,7 +401,6 @@ const RiasecResult = () => {
           </ReportCard>
         </div>
 
-        {/* Learning Resources */}
         <ReportCard 
           title="Amazing Resources to Explore! 📚"
           chipText="LEARNING TOOLS"
@@ -392,7 +445,6 @@ const RiasecResult = () => {
           </div>
         </ReportCard>
 
-        {/* NEW AI SKILLS AND INTERVENTION SECTION */}
         <ReportCard 
           title="AI & Future Skills! 🤖"
           chipText="SMART TECHNOLOGY"
@@ -488,7 +540,72 @@ const RiasecResult = () => {
           </div>
         </ReportCard>
 
-        {/* Keep existing sections */}
+        <ReportCard 
+          title="Your Soft Skills Superpowers! 💪"
+          chipText="PEOPLE SKILLS"
+          chipColor="from-kid-pink to-kid-purple"
+          className="mb-6"
+        >
+          <p className="mb-6 text-gray-700">{softSkillsData.section_intro}</p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            {softSkillsData.key_soft_skills.map((skill, index) => (
+              <SoftSkillCard
+                key={index}
+                name={skill.name}
+                whatItMeans={skill.what_it_means}
+                howToPractice={skill.how_to_practice}
+                icon={
+                  skill.name === "Teamwork" ? "🤝" :
+                  skill.name === "Communication" ? "💬" :
+                  skill.name === "Problem Solving" ? "🧩" :
+                  skill.name === "Creativity" ? "🎨" :
+                  skill.name === "Empathy" ? "💝" :
+                  skill.name === "Confidence" ? "⭐" : "💪"
+                }
+              />
+            ))}
+          </div>
+
+          <div className="bg-gradient-to-r from-kid-blue/5 to-kid-purple/5 rounded-xl p-4 mb-6">
+            <h4 className="font-semibold mb-3 text-gray-800 flex items-center">
+              <span className="mr-2">🎯</span>
+              Daily Challenges to Try:
+            </h4>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              {softSkillsData.daily_challenges.map((challenge, index) => (
+                <div key={index} className="flex items-start space-x-2">
+                  <span className="text-kid-blue text-sm">•</span>
+                  <span className="text-sm text-gray-600">{challenge}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-gradient-to-r from-kid-green/5 to-kid-yellow/5 rounded-xl p-4 mb-6">
+            <h4 className="font-semibold mb-3 text-gray-800 flex items-center">
+              <span className="mr-2">🌟</span>
+              Why This Matters:
+            </h4>
+            <p className="text-sm text-gray-700">{softSkillsData.why_it_matters}</p>
+          </div>
+
+          <h4 className="font-semibold mb-4 text-gray-800 flex items-center">
+            <span className="mr-2">🎪</span>
+            Fun Activities to Build These Skills:
+          </h4>
+          <div className="grid grid-cols-1 gap-3">
+            {softSkillsData.fun_activity_ideas.map((activity, index) => (
+              <SoftSkillActivityCard
+                key={index}
+                activity={activity.activity}
+                softSkillsUsed={activity.soft_skills_used}
+                icon={index === 0 ? "🏗️" : index === 1 ? "🎥" : "🤗"}
+              />
+            ))}
+          </div>
+        </ReportCard>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <ReportCard 
             title="What Makes You Awesome?"
@@ -527,7 +644,6 @@ const RiasecResult = () => {
           </ReportCard>
         </div>
 
-        {/* Keep existing code (future career ideas section) */}
         <ReportCard 
           title="Future Career Ideas!"
           chipText="FUTURE POSSIBILITIES"
@@ -579,7 +695,6 @@ const RiasecResult = () => {
           </div>
         </ReportCard>
 
-        {/* Keep existing code (what can you do right now section) */}
         <ReportCard 
           title="What Can You Do Right Now?"
           chipText="TAKE ACTION TODAY"
@@ -618,7 +733,6 @@ const RiasecResult = () => {
           </div>
         </ReportCard>
 
-        {/* Keep existing code (navigation buttons) */}
         <div className="text-center space-y-4">
           <div className="inline-block animate-float">
             <Button asChild className="bg-gradient-to-r from-kid-green to-kid-blue hover:opacity-90 transition-opacity text-white rounded-full px-6 py-6 text-lg font-semibold shadow-lg hover:shadow-xl mr-4">
